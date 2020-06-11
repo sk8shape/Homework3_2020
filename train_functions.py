@@ -3,7 +3,7 @@ import time
 from torch.backends import cudnn
 #Some functions for training
 
-def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 10):
+def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -25,7 +25,7 @@ def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 1
             loss = criterion(outputs, labels)
 
 
-            if current_step % LOG_FREQUENCY == 0:
+            if current_step % log_frequency == 0:
                 print('Step {}, Loss {}'.format(current_step, loss.item()))
                 loss_array.append(loss)
                 step_array.append(current_step)
@@ -72,7 +72,7 @@ def test_model(net, dataloader, dataset):
     return accuracy
 
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
-def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = 10, batch_size = 128, alphav = 0.01):
+def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = 10, batch_size = 128, alphav = 0.01, log_frequency = 10):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -114,7 +114,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             loss = criterion(outputs, one_target)
 
 
-            if current_step % LOG_FREQUENCY == 0:
+            if current_step % log_frequency == 0:
                 print('Step {}, Loss {}'.format(current_step, loss.item()))
 
             loss.backward()
