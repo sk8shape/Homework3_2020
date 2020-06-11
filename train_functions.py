@@ -11,8 +11,8 @@ def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 1
     current_step = 0
     loss_array = []
     step_array = []
-    for epoch in range(NUM_EPOCHS):
-        print('Starting epoch {}/{}, LR = {}'.format(epoch+1, NUM_EPOCHS,
+    for epoch in range(num_epochs):
+        print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
 
         for images,labels in dataloader:
