@@ -11,7 +11,7 @@ import numpy as np
 
 def train_model(net, train_dataloader, test_dataloader, test_dataset,
                 criterion, scheduler, optimizer, num_epochs = 10,
-                log_frequency = 10):
+                log_frequency = 10, fast == True):
 
     DEVICE = "cuda"
     since = time.time()
@@ -45,20 +45,22 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,
             optimizer.step()
             current_step += 1
 
-        accuracy = test_model(net, test_dataloader, test_dataset)
-        accuracy_array.append(accuracy)
-        epochs_array.append(epoch)
-        scheduler.step()
+        if fast == False:
+            accuracy = test_model(net, test_dataloader, test_dataset)
+            accuracy_array.append(accuracy)
+            epochs_array.append(epoch)
+            scheduler.step()
 
-    plt.plot(step_array,loss_array)
-    plt.xlabel("Step number")
-    plt.ylabel("Loss")
-    plt.show()
+    if fast == False
+        plt.plot(step_array,loss_array)
+        plt.xlabel("Step number")
+        plt.ylabel("Loss")
+        plt.show()
 
-    plt.plot(epochs_array, accuracy_array)
-    plt.xlabel("Epochs number")
-    plt.ylabel("Accuracy")
-    plt.show()
+        plt.plot(epochs_array, accuracy_array)
+        plt.xlabel("Epochs number")
+        plt.ylabel("Accuracy")
+        plt.show()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
@@ -89,7 +91,7 @@ def test_model(net, dataloader, dataset, verbose = False):
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
 def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler,
                           optimizer, num_epochs = 10, batch_size = 128, alphav = 0.01,
-                          log_frequency = 10):
+                          log_frequency = 10, fast == True):
 
     DEVICE = "cuda"
     since = time.time()
@@ -142,15 +144,17 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             optimizer.step()
             current_step += 1
 
-        accuracy = test_model(net, test_dataloader, test_dataset)
-        accuracy_array.append(accuracy)
-        epochs_array.append(epoch)
+        if fast == False:
+            accuracy = test_model(net, test_dataloader, test_dataset)
+            accuracy_array.append(accuracy)
+            epochs_array.append(epoch)
         scheduler.step()
 
-    plt.plot(epochs_array, accuracy_array)
-    plt.xlabel("Epochs number")
-    plt.ylabel("Accuracy")
-    plt.show()
+    if fast == False:
+        plt.plot(epochs_array, accuracy_array)
+        plt.xlabel("Epochs number")
+        plt.ylabel("Accuracy")
+        plt.show()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
