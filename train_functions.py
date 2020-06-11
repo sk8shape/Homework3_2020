@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import logging
 import time
 import torch
-import numpy as np 
+import numpy as np
 #Some functions for training
 
 def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
@@ -98,6 +98,11 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
     one_target = torch.as_tensor(ones).long()
     one_target = one_target.to(DEVICE)
 
+    loss_array = []
+    step_array = []
+    accuracy_array = []
+    epochs_array = []
+
     for epoch in range(num_epochs):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
@@ -137,6 +142,5 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-    print("alpha: " + str(alpha))
 
     return net
