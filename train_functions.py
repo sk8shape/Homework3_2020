@@ -1,8 +1,8 @@
 
 
-#Some functions for training 
+#Some functions for training
 
-def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = NUM_EPOCHS):
+def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 10):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -71,7 +71,7 @@ def test_model(net, dataloader, dataset):
     return accuracy
 
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
-def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = NUM_EPOCHS, batch_size = BATCH_SIZE, alpha = ALPHA_P):
+def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = 10, batch_size = 128, alpha = 0.01):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -86,7 +86,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
     one_target = one_target.to(DEVICE)
 
     for epoch in range(NUM_EPOCHS):
-        print('Starting epoch {}/{}, LR = {}'.format(epoch+1, NUM_EPOCHS,
+        print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
 
         for i in range(len(dataloader_src)):
@@ -124,6 +124,6 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-    print("alpha: " + str(ALPHA_P))
+    print("alpha: " + str(alpha))
 
     return net
