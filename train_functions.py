@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import logging
 import time
 import torch
-
+import numpy as np 
 #Some functions for training
 
 def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
@@ -18,7 +18,7 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion
     loss_array = []
     step_array = []
     accuracy_array = []
-    epochs_array = [] 
+    epochs_array = []
     for epoch in range(num_epochs):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
