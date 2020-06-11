@@ -15,7 +15,7 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
 
-        for images,labels in dataloader:
+        for images,labels in train_dataloader:
             images = images.to(DEVICE)
             labels = labels.to(DEVICE)
 
