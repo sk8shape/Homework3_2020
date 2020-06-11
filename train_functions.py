@@ -72,7 +72,7 @@ def test_model(net, dataloader, dataset):
     return accuracy
 
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
-def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = 10, batch_size = 128, alpha = 0.01):
+def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = 10, batch_size = 128, alphav = 0.01):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -86,7 +86,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
     one_target = torch.as_tensor(ones).long()
     one_target = one_target.to(DEVICE)
 
-    for epoch in range(NUM_EPOCHS):
+    for epoch in range(num_epochs):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
 
@@ -101,7 +101,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             loss = criterion(outputs, labels)
             loss.backward()
 
-            outputs = net(images, alpha = ALPHA_P)
+            outputs = net(images, alpha = alphav)
             loss = criterion(outputs, zero_target)
             loss.backward()
 
@@ -110,7 +110,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             target_images = target_images.to(DEVICE)
             target_labels = target_labels.to(DEVICE)
 
-            outputs = net(target_images, alpha=ALPHA_P)
+            outputs = net(target_images, alpha = alphav)
             loss = criterion(outputs, one_target)
 
 
