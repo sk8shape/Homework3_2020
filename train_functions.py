@@ -1,3 +1,7 @@
+
+
+#Some functions for training 
+
 def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = NUM_EPOCHS):
     DEVICE = "cuda"
     since = time.time()
@@ -9,7 +13,6 @@ def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = N
     for epoch in range(NUM_EPOCHS):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, NUM_EPOCHS,
                                                      scheduler.get_last_lr()))
-
 
         for images,labels in dataloader:
             images = images.to(DEVICE)
