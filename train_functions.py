@@ -68,7 +68,6 @@ def test_model(net, dataloader, dataset):
     return accuracy
 
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
-ALPHA_P = 0.01
 def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler, optimizer, num_epochs = NUM_EPOCHS, batch_size = BATCH_SIZE, alpha = ALPHA_P):
     DEVICE = "cuda"
     since = time.time()
