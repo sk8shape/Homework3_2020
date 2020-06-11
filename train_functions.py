@@ -3,7 +3,7 @@ import time
 from torch.backends import cudnn
 #Some functions for training
 
-def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
+def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
     DEVICE = "cuda"
     since = time.time()
     cudnn.benchmark
@@ -34,7 +34,7 @@ def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 1
             optimizer.step()
             current_step += 1
 
-        accuracy = test_model(net, art_dl, art_dataset)
+        accuracy = test_model(net, test_dataloader, test_dataset)
         accuracy_array.append(accuracy)
         epochs_array.append(epoch)
         scheduler.step()
