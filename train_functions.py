@@ -5,6 +5,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import logging
 import time
+import torch
+
 #Some functions for training
 
 def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion, scheduler, optimizer, num_epochs = 10, log_frequency = 10):
