@@ -1,5 +1,6 @@
 
-
+import time
+from torch.backends import cudnn
 #Some functions for training
 
 def train_model(net, dataloader, criterion, scheduler, optimizer, num_epochs = 10):
