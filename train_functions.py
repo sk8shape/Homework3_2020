@@ -17,6 +17,7 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion
     current_step = 0
     loss_array = []
     step_array = []
+    accuracy_array = []
     for epoch in range(num_epochs):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
@@ -60,10 +61,14 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion
 
     return net
 
-def test_model(net, dataloader, dataset):
+def test_model(net, dataloader, dataset, verbose = False):
     DEVICE = 'cuda'
     running_corrects = 0
-    for images, labels in tqdm(dataloader):
+
+    if verbose == True:
+        dataloader = tqdm(dataloader)
+
+    for images, labels in dataloader:
         images = images.to(DEVICE)
         labels = labels.to(DEVICE)
 
