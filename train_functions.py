@@ -104,8 +104,6 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
     one_target = torch.as_tensor(ones).long()
     one_target = one_target.to(DEVICE)
 
-    loss_array = []
-    step_array = []
     accuracy_array = []
     epochs_array = []
 
@@ -144,7 +142,15 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             optimizer.step()
             current_step += 1
 
+        accuracy = test_model(net, test_dataloader, test_dataset)
+        accuracy_array.append(accuracy)
+        epochs_array.append(epoch)
         scheduler.step()
+
+    plt.plot(epochs_array, accuracy_array)
+    plt.xlabel("Epochs number")
+    plt.ylabel("Accuracy")
+    plt.show()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
