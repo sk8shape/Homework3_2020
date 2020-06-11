@@ -1,5 +1,7 @@
 import torch.nn as nn
 from torch.autograd import Function
+import torch
+import numpy as np
 
 class ReverseLayerF(Function):
     # Forwards identity
