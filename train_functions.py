@@ -18,6 +18,7 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,  criterion
     loss_array = []
     step_array = []
     accuracy_array = []
+    epochs_array = [] 
     for epoch in range(num_epochs):
         print('Starting epoch {}/{}, LR = {}'.format(epoch+1, num_epochs,
                                                      scheduler.get_last_lr()))
