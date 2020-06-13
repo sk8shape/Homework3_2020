@@ -51,7 +51,7 @@ def train_model(net, train_dataloader, test_dataloader, test_dataset,
             epochs_array.append(epoch)
             scheduler.step()
 
-    if fast == False
+    if fast == False:
         plt.plot(step_array,loss_array)
         plt.xlabel("Step number")
         plt.ylabel("Loss")
