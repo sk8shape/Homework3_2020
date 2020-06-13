@@ -11,7 +11,7 @@ import numpy as np
 
 def train_model(net, train_dataloader, test_dataloader, test_dataset,
                 criterion, scheduler, optimizer, num_epochs = 10,
-                log_frequency = 10, fast == True):
+                log_frequency = 10, fast = True):
 
     DEVICE = "cuda"
     since = time.time()
@@ -91,7 +91,7 @@ def test_model(net, dataloader, dataset, verbose = False):
 ##TRAIN ON PHOTO AND TEST ON ART WITH DANN ADAPTATION
 def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, scheduler,
                           optimizer, num_epochs = 10, batch_size = 128, alphav = 0.01,
-                          log_frequency = 10, fast == True):
+                          log_frequency = 10, fast = True):
 
     DEVICE = "cuda"
     since = time.time()
