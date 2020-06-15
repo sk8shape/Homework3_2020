@@ -148,6 +148,7 @@ def train_model_with_dann(net, dataloader_src, dataloader_target, criterion, sch
             accuracy = test_model(net, test_dataloader, test_dataset)
             accuracy_array.append(accuracy)
             epochs_array.append(epoch)
+
         scheduler.step()
 
     if fast == False:
